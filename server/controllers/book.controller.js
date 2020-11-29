@@ -17,7 +17,6 @@ exports.create = function(req, res) {
 
 exports.findAll = function(req, res) {
     Book.findAll(function(err, student) {
-        console.log('controller')
         if (err)
         res.send(err);
         console.log('res', student);

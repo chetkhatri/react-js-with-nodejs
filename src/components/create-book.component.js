@@ -23,22 +23,7 @@ export default class CreateBook extends Component {
     }
     constructor(props) {
         super(props)
-
-        // this.onChangeBookNumber = this.onChangeBookNumber.bind(this);
-        // this.onChangeAuthor = this.onChangeAuthor.bind(this);
-        // this.onChangeTitle = this.onChangeTitle.bind(this);
-        // this.onChangeSubject = this.onChangeSubject.bind(this);
-
-        this.onSubmit = this.onSubmit.bind(this);
-
-            // this.state = {
-            //     book_isbn_number: '', book_isbn_numberValid: false, 
-            //     author: '', authorValid: false,
-            //     title: '', titleValid: false,
-            //     book_subject: '', book_subjectValid: false,
-            //     formValid: false,
-            //     errorMsg: {}
-            // }
+        this.onSubmit = this.onSubmit.bind(this); 
     }
 
     validateForm = () => {
@@ -58,9 +43,9 @@ export default class CreateBook extends Component {
         let errorMsg = {...this.state.errorMsg}
         
 
-        if (book_isbn_number.length < 3) {
+        if (book_isbn_number.length < 10 || book_isbn_number.length > 12) {
             bookNumberValid = false;
-            errorMsg.book_isbn_number = 'Invalid book number';
+            errorMsg.book_isbn_number = 'Book ISBN length must be in between 10 and 12 characters';
           }
       
           this.setState({bookNumberValid, errorMsg}, this.validateForm)
@@ -76,7 +61,7 @@ export default class CreateBook extends Component {
         let errorMsg = {...this.state.errorMsg}
         if(!/^[a-z\s]+$/i.test(author)) {
             authorValid = false;
-            errorMsg.author = "Invalid author name";
+            errorMsg.author = "Invalid author name, It should be Alphabetic";
         }
         this.setState({authorValid, errorMsg}, this.validateForm)
     }
@@ -89,9 +74,9 @@ export default class CreateBook extends Component {
         const {title} = this.state;
         let titleValid = true;
         let errorMsg = {...this.state.errorMsg}
-        if(!/^[a-z\s]+$/i.test(title)) {
+        if(!/^[a-z\d\s]+$/i.test(title)) {
             titleValid = false;
-            errorMsg.title = "Invalid Book title";
+            errorMsg.title = "Invalid Book title, It should be Alphanumeric";
         }
         this.setState({titleValid, errorMsg}, this.validateForm)
     }
@@ -107,28 +92,10 @@ export default class CreateBook extends Component {
         
         if(!/^[a-z\s]+$/i.test(book_subject)) {
             subjectValid = false;
-            errorMsg.book_subject = "Invalid Book Subject";
+            errorMsg.book_subject = "Invalid Book Subject, It should be Alphanumeric";
         }
         this.setState({subjectValid, errorMsg}, this.validateForm)
     }
-
-
-    // onChangeBookNumber(e) {
-    //     this.setState({ book_isbn_number: e.target.value })
-    // }
-
-    // onChangeAuthor(e) {
-    //     this.setState({ author: e.target.value })
-    // }
-
-    // onChangeTitle(e) {
-    //     this.setState({ title: e.target.value })
-    // }
-
-    // onChangeSubject(e) {
-    //     this.setState({ book_subject: e.target.value })
-    // }
-
 
     onSubmit(e) {
         e.preventDefault()

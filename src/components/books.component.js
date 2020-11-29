@@ -32,10 +32,10 @@ export default class Books extends Component {
                     <table className="table table-striped table-dark">
                         <thead className="thead-dark">
                             <tr>
-                                <td>Book Number</td>
-                                <td>Author</td>
-                                <td>Title</td>
-                                <td>Subject</td>
+                                <th>Book Number</th>
+                                <th>Author</th>
+                                <th>Title</th>
+                                <th>Subject</th>
                             </tr>
                         </thead>
                         <tbody>
