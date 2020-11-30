@@ -8,7 +8,7 @@ const {validateBook} = require('../validation/validator.js')
 
 // Create a new Book
 router.post('/', validateBook, bookController.create);
-router.get('/', bookController.findAll);
+router.get('/:token', bookController.findById);
 
 
 module.exports = router

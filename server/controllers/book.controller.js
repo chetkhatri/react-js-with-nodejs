@@ -1,6 +1,7 @@
 'use strict';
 
 const Book = require('../models/book.model');
+const id = Book.id;
 
 exports.create = function(req, res) {
 
@@ -15,11 +16,13 @@ exports.create = function(req, res) {
     });
 };
 
-exports.findAll = function(req, res) {
-    Book.findAll(function(err, student) {
-        if (err)
-        res.send(err);
-        console.log('res', student);
-        res.send(student);
-    }); 
+  exports.findById = function(req, res) {
+  Book.findById(req.params.token, function(err, book) {
+
+    if(err == 400) {
+      res.status(400).json({ error: err.toString() })
+    } else {
+      res.json(book);
+    }
+  })
   };

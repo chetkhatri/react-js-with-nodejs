@@ -19,12 +19,20 @@ export default class CreateBook extends Component {
         title: '', titleValid: false,
         book_subject: '', subjectValid: false,
         formValid: false,
-        errorMsg: {}
+        errorMsg: {},
+        token: 0
     }
     constructor(props) {
         super(props)
         this.onSubmit = this.onSubmit.bind(this); 
     }
+
+    componentDidMount() {
+        const min = 1;
+        const max = 10000;
+        const rand = min + Math.random() * (max - min);
+        this.setState({ token: this.state.token + rand });
+    }   
 
     validateForm = () => {
         const {bookNumberValid, authorValid, titleValid, subjectValid} = this.state;
@@ -104,7 +112,8 @@ export default class CreateBook extends Component {
             book_isbn_number: this.state.book_isbn_number,
             author: this.state.author,
             title: this.state.title,
-            book_subject: this.state.book_subject
+            book_subject: this.state.book_subject,
+            id: this.state.token.toString
         };
 
         axios.post('http://localhost:5345/api/v1/book', bookObject)
@@ -124,6 +133,7 @@ export default class CreateBook extends Component {
             <div className="wrapper">
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
+                    <input type="hidden" name="token" value={this.state.token} />
                     <ValidationMessage valid={this.state.bookNumberValid} message={this.state.errorMsg.book_isbn_number} />
                         <label>Book Number</label>
                         <input type="text" value={this.state.book_isbn_number} 
